@@ -371,19 +371,22 @@ function selectExample(value) {
     }
 }
 
+
 function generateDiagram() {
-    var model = monaco.editor.getModels()[0];
-    var modelVal = model.getValue();
+    const { Specification, MermaidStateCode } = serverWorkflowSdk;
 
+    const model = monaco.editor.getModels()[0];
+    const modelVal = model.getValue();
 
-    callUrl('POST', '/services/diagrams', modelVal, function showDiagram(res){
-        if (res !== null) {
-            var container = document.querySelector(".workflowdiagram");
-            container.innerHTML = res;
-        } else {
-            alert("unable to generate workflow diagram");
-        }
+    const mermaidSource = new MermaidStateCode().transform(Specification.Workflow.fromSource(modelVal));
+    const mermaidDiv = document.getElementById('mermaid-container');
+
+    mermaid.mermaidAPI.render('any', mermaidSource, svgCode => {
+        mermaidDiv.innerHTML = svgCode;
     });
+
+
+
 }
 
 function callUrl(type, url, data, callback){
