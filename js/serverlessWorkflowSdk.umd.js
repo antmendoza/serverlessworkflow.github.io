@@ -192,7 +192,7 @@
       return new _Code(rx.toString());
   }
   exports.regexpCode = regexpCode;
-  //# sourceMappingURL=code.js.map
+
   }(code$1));
 
   var scope = {};
@@ -339,7 +339,7 @@
       }
   }
   exports.ValueScope = ValueScope;
-  //# sourceMappingURL=scope.js.map
+
   }(scope));
 
   (function (exports) {
@@ -1038,7 +1038,7 @@
   function par(x) {
       return x instanceof code_1.Name ? x : code_1._ `(${x})`;
   }
-  //# sourceMappingURL=index.js.map
+
   }(codegen));
 
   var util = {};
@@ -1220,7 +1220,7 @@
       it.self.logger.warn(msg);
   }
   exports.checkStrictMode = checkStrictMode;
-  //# sourceMappingURL=util.js.map
+
   }(util));
 
   var names$1 = {};
@@ -1374,7 +1374,7 @@
       if (propertyName)
           keyValues.push([E.propertyName, propertyName]);
   }
-  //# sourceMappingURL=errors.js.map
+
   }(errors$1));
 
   Object.defineProperty(boolSchema, "__esModule", { value: true });
@@ -1676,7 +1676,7 @@
           it,
       };
   }
-  //# sourceMappingURL=dataType.js.map
+
   }(dataType));
 
   var defaults = {};
@@ -3596,7 +3596,7 @@
   Object.defineProperty(exports, '__esModule', { value: true });
 
   })));
-  //# sourceMappingURL=uri.all.js.map
+
   }(uri_all, uri_all.exports));
 
   Object.defineProperty(resolve$1, "__esModule", { value: true });
@@ -5166,7 +5166,7 @@
   function schemaOrData(schema) {
       return { anyOf: [schema, $dataRef] };
   }
-  //# sourceMappingURL=core.js.map
+
   }(core$3));
 
   var draft7 = {};
@@ -6089,7 +6089,7 @@
   }
   exports.validateSchemaDeps = validateSchemaDeps;
   exports.default = def;
-  //# sourceMappingURL=dependencies.js.map
+
   }(dependencies));
 
   var propertyNames = {};
@@ -6764,7 +6764,7 @@
       DiscrError["Tag"] = "tag";
       DiscrError["Mapping"] = "mapping";
   })(exports.DiscrError || (exports.DiscrError = {}));
-  //# sourceMappingURL=types.js.map
+
   }(types));
 
   Object.defineProperty(discriminator, "__esModule", { value: true });
@@ -7154,7 +7154,7 @@
   Object.defineProperty(exports, "nil", { enumerable: true, get: function () { return codegen_1.nil; } });
   Object.defineProperty(exports, "Name", { enumerable: true, get: function () { return codegen_1.Name; } });
   Object.defineProperty(exports, "CodeGen", { enumerable: true, get: function () { return codegen_1.CodeGen; } });
-  //# sourceMappingURL=ajv.js.map
+
   }(ajv$1, ajv$1.exports));
 
   var Ajv = /*@__PURE__*/getDefaultExportFromCjs(ajv$1.exports);
@@ -14615,89 +14615,6 @@
       }
   }
 
-  var MermaidState = /** @class */ (function () {
-      function MermaidState(isFirstState, state) {
-          this.isFirstState = isFirstState;
-          this.state = state;
-      }
-      MermaidState.prototype.definition = function () {
-          return (this.state.name +
-              ' : ' +
-              this.state.name +
-              '\n' +
-              this.typeDescription() +
-              '\n' +
-              // this.parallelStateDescription() + this.parallelStateDescription()?'\n':"" +
-              '\n');
-      };
-      MermaidState.prototype.typeDescription = function () {
-          var type = this.state.type;
-          return this.state.name + ' : type = ' + type.charAt(0).toUpperCase() + type.slice(1) + ' State';
-      };
-      MermaidState.prototype.transitions = function () {
-          var transitions = '';
-          var stateName = this.state.name;
-          if (this.isFirstState) {
-              transitions += '[*]' + ' --> ' + stateName + '\n';
-          }
-          var dataBasedSwitchState = this.state;
-          if (dataBasedSwitchState.dataConditions) {
-              dataBasedSwitchState.dataConditions.forEach(function (dataCondition) {
-                  transitions += stateName + ' --> ' + dataCondition.transition + ' : ' + dataCondition.condition + '\n';
-              });
-          }
-          var eventBasedSwitchState = this.state;
-          if (eventBasedSwitchState.eventConditions) {
-              eventBasedSwitchState.eventConditions.forEach(function (eventCondition) {
-                  if (eventCondition.end) {
-                      transitions += stateName + ' --> ' + '[*]' + '\n';
-                  }
-              });
-          }
-          if (this.state.onErrors) {
-              this.state.onErrors.forEach(function (error) {
-                  transitions += stateName + ' --> ' + error.transition + ' : ' + error.errorRef + '\n';
-              });
-          }
-          if (this.state.transition) {
-              transitions += stateName + ' --> ' + this.state.transition + '\n';
-          }
-          if (this.state.end) {
-              transitions += stateName + ' --> ' + '[*]' + '\n';
-          }
-          return transitions;
-      };
-      // @ts-ignore
-      MermaidState.prototype.parallelStateDescription = function () {
-          var parallelState = this.state;
-          if (parallelState.completionType) {
-              return 'ParallelExec : Completion type "' + parallelState.completionType + '"';
-          }
-          return undefined;
-      };
-      return MermaidState;
-  }());
-
-  var MermaidStateCode = /** @class */ (function () {
-      function MermaidStateCode() {
-      }
-      MermaidStateCode.prototype.transform = function (workflow) {
-          var states = workflow.states.map(function (state, index) {
-              var isFirstState = index === 0;
-              return new MermaidState(isFirstState, state);
-          });
-          var stateDefinitions = '';
-          var transitions = '';
-          states.forEach(function (state) {
-              stateDefinitions += state.definition();
-              transitions += state.transitions();
-          });
-          var mermaidStateDiagramVersion = 'stateDiagram-v2';
-          return mermaidStateDiagramVersion + '\n' + stateDefinitions + transitions;
-      };
-      return MermaidStateCode;
-  }());
-
   /*
    * Copyright 2021-Present The Serverless Workflow Specification Authors
    *
@@ -14779,9 +14696,6 @@
       Workflow.toYaml = function (workflow) {
           validate('Workflow', workflow);
           return dump(JSON.parse(JSON.stringify(workflow.normalize())));
-      };
-      Workflow.toSvg = function (workflow) {
-          return new MermaidStateCode().transform(workflow);
       };
       return Workflow;
   }());
@@ -17680,7 +17594,274 @@
       return builder(workflowExecTimeoutBuildingFn);
   }
 
-  exports.MermaidStateCode = MermaidStateCode;
+  var MermaidState = /** @class */ (function () {
+      function MermaidState(state, isFirstState) {
+          if (isFirstState === void 0) { isFirstState = false; }
+          this.state = state;
+          this.isFirstState = isFirstState;
+      }
+      MermaidState.prototype.sourceCode = function () {
+          return this.definitions() + '\n' + this.transitions();
+      };
+      MermaidState.prototype.definitions = function () {
+          return (this.definitionName() + '\n' + this.definitionType() + (this.definitionDetails() !== undefined ? '\n' + this.definitionDetails() : ''));
+      };
+      MermaidState.prototype.transitions = function () {
+          var transitions = [];
+          transitions.push.apply(transitions, this.startTransition());
+          transitions.push.apply(transitions, this.dataConditionsTransitions());
+          transitions.push.apply(transitions, this.eventConditionsTransition());
+          transitions.push.apply(transitions, this.errorTransitions());
+          transitions.push.apply(transitions, this.naturalTransition(this.stateName(), this.state.transition));
+          transitions.push.apply(transitions, this.endTransition());
+          return transitions.reduce(function (p, c) {
+              return p + '\n' + c;
+          });
+      };
+      MermaidState.prototype.stateName = function () {
+          var _a;
+          return (_a = this.state.name) === null || _a === void 0 ? void 0 : _a.replace(" ", "_");
+      };
+      MermaidState.prototype.startTransition = function () {
+          var transitions = [];
+          if (this.isFirstState) {
+              var stateName = this.stateName();
+              transitions.push(this.transitionDescription('[*]', stateName));
+          }
+          return transitions;
+      };
+      MermaidState.prototype.dataConditionsTransitions = function () {
+          var _this = this;
+          var transitions = [];
+          var dataBasedSwitchState = this.state;
+          if (dataBasedSwitchState.dataConditions) {
+              var stateName_1 = this.stateName();
+              dataBasedSwitchState.dataConditions.forEach(function (dataCondition) {
+                  var transitionDataCondition = dataCondition;
+                  transitions.push.apply(transitions, _this.naturalTransition(stateName_1, transitionDataCondition.transition, transitionDataCondition.condition));
+                  var endDataCondition = dataCondition; //TODO
+                  if (endDataCondition.end) {
+                      transitions.push(_this.transitionDescription(stateName_1, endDataCondition.name, endDataCondition.condition));
+                  }
+              });
+              transitions.push.apply(transitions, this.defaultConditionTransition(dataBasedSwitchState));
+          }
+          return transitions;
+      };
+      MermaidState.prototype.eventConditionsTransition = function () {
+          var _this = this;
+          var transitions = [];
+          var eventBasedSwitchState = this.state;
+          if (eventBasedSwitchState.eventConditions) {
+              var stateName_2 = this.stateName();
+              eventBasedSwitchState.eventConditions.forEach(function (eventCondition) {
+                  var transitionEventCondition = eventCondition;
+                  transitions.push.apply(transitions, _this.naturalTransition(stateName_2, transitionEventCondition.transition));
+                  var endEventCondition = eventCondition;
+                  if (endEventCondition.end) {
+                      transitions.push(_this.transitionDescription(stateName_2, '[*]'));
+                  }
+              });
+              transitions.push.apply(transitions, this.defaultConditionTransition(eventBasedSwitchState));
+          }
+          return transitions;
+      };
+      MermaidState.prototype.defaultConditionTransition = function (state) {
+          var transitions = [];
+          if (state.defaultCondition) {
+              transitions.push.apply(transitions, this.naturalTransition(this.stateName(), state.defaultCondition.transition, 'default'));
+          }
+          return transitions;
+      };
+      MermaidState.prototype.endTransition = function () {
+          var transitions = [];
+          if (this.state.end) {
+              var stateName = this.stateName();
+              var transitionLabel = undefined;
+              if (isObject(this.state.end)) {
+                  var end = this.state.end;
+                  if (end.produceEvents.length > 0) {
+                      transitionLabel = 'Produced event = [' + end.produceEvents.map(function (pe) { return pe.eventRef; }).join(',') + ']';
+                  }
+              }
+              transitions.push(this.transitionDescription(stateName, '[*]', transitionLabel));
+          }
+          return transitions;
+      };
+      MermaidState.prototype.naturalTransition = function (start, end, label) {
+          if (label === void 0) { label = undefined; }
+          var transitions = [];
+          if (end) {
+              var descTransition = '';
+              if (isObject(end)) {
+                  descTransition = end.nextState;
+              }
+              else if (typeof end === 'string') {
+                  descTransition = end;
+              }
+              transitions.push(this.transitionDescription(start, descTransition, label ? label : undefined));
+          }
+          return transitions;
+      };
+      MermaidState.prototype.errorTransitions = function () {
+          var _this = this;
+          var transitions = [];
+          if (this.state.onErrors) {
+              this.state.onErrors.forEach(function (error) {
+                  transitions.push.apply(transitions, _this.naturalTransition(_this.stateName(), error.transition, error.errorRef));
+              });
+          }
+          return transitions;
+      };
+      MermaidState.prototype.definitionDetails = function () {
+          switch (this.state.type) {
+              case 'sleep':
+                  return this.sleepStateDetails();
+              case 'event':
+                  return undefined; //NOTHING
+              case 'operation':
+                  return this.operationStateDetails();
+              case 'parallel':
+                  return this.parallelStateDetails();
+              case 'switch':
+                  var switchState = this.state;
+                  if (switchState.dataConditions) {
+                      return this.dataBasedSwitchStateDetails();
+                  }
+                  if (switchState.eventConditions) {
+                      return this.eventBasedSwitchStateDetails();
+                  }
+                  throw new Error("Unexpected switch type; \n state value= " + JSON.stringify(this.state, null, 4));
+              case 'inject':
+                  return undefined; // NOTHING
+              case 'foreach':
+                  return this.foreachStateDetails();
+              case 'callback':
+                  return this.callbackStateDetails();
+              default:
+                  throw new Error("Unexpected type= " + this.state.type + "; \n state value= " + JSON.stringify(this.state, null, 4));
+          }
+      };
+      MermaidState.prototype.definitionType = function () {
+          var type = this.state.type;
+          return this.stateDescription(this.stateName(), 'type', type.charAt(0).toUpperCase() + type.slice(1) + ' State');
+      };
+      MermaidState.prototype.parallelStateDetails = function () {
+          var _a;
+          var parallelState = this.state;
+          var descriptions = [];
+          if (parallelState.completionType) {
+              descriptions.push(this.stateDescription(this.stateName(), 'Completion type', parallelState.completionType));
+          }
+          if (parallelState.branches) {
+              descriptions.push(this.stateDescription(this.stateName(), 'Num. of branches', ((_a = parallelState.branches) === null || _a === void 0 ? void 0 : _a.length) + ''));
+          }
+          return descriptions.length > 0
+              ? descriptions.reduce(function (p, c) {
+                  return p + '\n' + c;
+              })
+              : undefined;
+      };
+      MermaidState.prototype.eventBasedSwitchStateDetails = function () {
+          return this.stateDescription(this.stateName(), "Condition type", "event-based");
+      };
+      MermaidState.prototype.dataBasedSwitchStateDetails = function () {
+          return this.stateDescription(this.stateName(), "Condition type", "data-based");
+      };
+      MermaidState.prototype.operationStateDetails = function () {
+          var _a;
+          var state = this.state;
+          var descriptions = [];
+          if (state.actionMode) {
+              descriptions.push(this.stateDescription(this.stateName(), 'Action mode', state.actionMode));
+          }
+          if (state.actions) {
+              descriptions.push(this.stateDescription(this.stateName(), 'Num. of actions', ((_a = state.actions) === null || _a === void 0 ? void 0 : _a.length) + ''));
+          }
+          return descriptions.length > 0
+              ? descriptions.reduce(function (p, c) {
+                  return p + '\n' + c;
+              })
+              : undefined;
+      };
+      MermaidState.prototype.sleepStateDetails = function () {
+          var state = this.state;
+          if (state.duration) {
+              return this.stateDescription(this.stateName(), 'Duration', state.duration);
+          }
+          return undefined;
+      };
+      MermaidState.prototype.foreachStateDetails = function () {
+          var _a;
+          var state = this.state;
+          var descriptions = [];
+          if (state.inputCollection) {
+              descriptions.push(this.stateDescription(this.stateName(), 'Input collection', state.inputCollection));
+          }
+          if (state.actions) {
+              descriptions.push(this.stateDescription(this.stateName(), 'Num. of actions', ((_a = state.actions) === null || _a === void 0 ? void 0 : _a.length) + ''));
+          }
+          return descriptions.length > 0
+              ? descriptions.reduce(function (p, c) {
+                  return p + '\n' + c;
+              })
+              : undefined;
+      };
+      MermaidState.prototype.callbackStateDetails = function () {
+          var state = this.state;
+          var descriptions = [];
+          if (state.action && state.action.functionRef) {
+              var functionRef = state.action.functionRef;
+              var functionRefDescription = '';
+              if (isObject(functionRef)) {
+                  functionRefDescription = functionRef.refName;
+              }
+              else if (typeof functionRef === 'string') {
+                  functionRefDescription = functionRef;
+              }
+              descriptions.push(this.stateDescription(this.stateName(), 'Callback function', functionRefDescription));
+          }
+          if (state.eventRef) {
+              descriptions.push(this.stateDescription(this.stateName(), 'Callback event', state.eventRef));
+          }
+          return descriptions.length > 0
+              ? descriptions.reduce(function (p, c) {
+                  return p + '\n' + c;
+              })
+              : undefined;
+      };
+      MermaidState.prototype.definitionName = function () {
+          return this.stateName() + ' : ' + this.stateName();
+      };
+      MermaidState.prototype.transitionDescription = function (start, end, label) {
+          if (label === void 0) { label = undefined; }
+          return start + ' --> ' + end + (label ? ' : ' + label : '');
+      };
+      MermaidState.prototype.stateDescription = function (stateName, description, value) {
+          return stateName + (" : " + description + " = " + value);
+      };
+      return MermaidState;
+  }());
+
+  var MermaidDiagram = /** @class */ (function () {
+      function MermaidDiagram(workflow) {
+          this.workflow = workflow;
+      }
+      MermaidDiagram.prototype.sourceCode = function () {
+          var mermaidStateDiagramVersion = 'stateDiagram-v2';
+          return (mermaidStateDiagramVersion +
+              '\n' +
+              this.workflow.states
+                  .map(function (state, index) {
+                  var isFirstState = index === 0;
+                  return new MermaidState(state, isFirstState).sourceCode();
+              })
+                  .join('\n\n'));
+      };
+      return MermaidDiagram;
+  }());
+
+  exports.MermaidDiagram = MermaidDiagram;
   exports.Specification = specification;
   exports.ValidationError = ValidationError$1;
   exports.WorkflowValidator = WorkflowValidator;
